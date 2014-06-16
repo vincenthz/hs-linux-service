@@ -1,0 +1,49 @@
+Name:                linux-service
+Version:             0.1.0
+Description:         A collection of method for querying linux services on a modern desktop.
+                     .
+                     Some services might also be available on different UNIX platform.
+License:             BSD3
+License-file:        LICENSE
+Copyright:           Vincent Hanquez <vincent@snarc.org>
+Author:              Vincent Hanquez <vincent@snarc.org>
+Maintainer:          Vincent Hanquez <vincent@snarc.org>
+Synopsis:            Desktop services query on a modern desktop.
+Build-Type:          Simple
+Category:            Desktop, System
+stability:           experimental
+Cabal-Version:       >=1.8
+Homepage:            http://github.com/vincenthz/hs-linux-service
+data-files:          README.md
+
+Flag test
+  Description:       Build test executable
+  Default:           False
+
+Library
+  Build-Depends:     base >= 3 && < 5
+                   , udbus >= 0.2.0
+                   , bytestring
+                   , utf8-string
+                   , mtl
+                   , unix
+  Exposed-modules:   System.Service.NetworkManager
+                     System.Service.Power
+                     System.Service.Notification
+                     System.Service.Common
+  ghc-options:       -Wall
+
+Executable           tests
+  Main-is:           Tests.hs
+  hs-source-dirs:    Tests
+  if flag(test)
+    Buildable:       True
+    Build-Depends:   base
+                   , udbus
+                   , linux-service
+  else
+    Buildable:       False
+
+source-repository head
+  type: git
+  location: git://github.com/vincenthz/hs-linux-service
